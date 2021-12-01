@@ -10,15 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.Binding;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestWrapper;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @Component
 @ComponentScan("com.example.demo")
@@ -41,8 +35,6 @@ public class ControllerClass {
     public String addAproject(@ModelAttribute("project") @Valid Project project, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "redirect:/projects/new";
-        System.out.println(project.getName());
-        System.out.println("I'm here1!");
         if (daoProject.save(project) == 1)
             return "redirect:/projects/new";
         return "redirect:/projects/all";
@@ -65,8 +57,6 @@ public class ControllerClass {
 
     @PostMapping("/{id}/patch")
     public String patch(@PathVariable("id") int id, @ModelAttribute("project") Project project){
-        System.out.println(project);
-        System.out.println("UPDATE");
         daoProject.update(project, id);
         return "redirect:/projects/all";
     }
@@ -102,11 +92,10 @@ public class ControllerClass {
 
     @PostMapping("/all/{id}/newtask")
     public String addtask(@PathVariable("id") int id, @ModelAttribute("tasks") Tasks task){
-        System.out.println(task.getName());
         task.setProject(daoProject.show(id));
-        daoProject.save(task);
-        System.out.println(task.getProject());
-        return "redirect:/projects/all";
+        if (daoProject.saveTask(task) == 1)
+            return "redirect:/{id}/tasks/addtask";
+        return "redirect:/projects/{id}/tasks";
 
     }
 
