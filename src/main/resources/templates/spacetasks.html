@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Cpmplete</title>
+</head>
+<body>
+All tasks completed
+
+<p><a th:href="@{../{id}/tasks/addtask(id = ${project.getId()})}" NEW>add task</a><p/>
+</body>
+</html>

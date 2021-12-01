@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Projects</title>
+</head>
+<body>
+Title
+<div th:each="project : ${projects}">
+    <a th:href="@{{id}(id=${project.getId()})}" th:text="${project.getName()}">usr</a>
+</div>
+    <p><a th:href="@{new}" NEW>Создать</a><p/>
+</body>
+</html>

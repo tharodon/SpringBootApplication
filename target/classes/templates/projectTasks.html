@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+</head>
+<body>
+Tasks
+<br/>
+<div th:each="task : ${tasks}">
+    <a style="color:forestgreen" th:text="${task.getName()}">usr</a>
+</div>
+
+<p><a th:href="@{../{id}(id = ${tasks.get(0).getProject().getId()})}" NEW>Назад</a><p/>
+
+<p><a th:href="@{../{id}/tasks/addtask(id = ${tasks.get(0).getProject().getId()})}" NEW>new task</a><p/>
+</body>
+</html>
